@@ -1,4 +1,8 @@
-﻿[Name]=iTunes
+﻿# ######## Mp3tag Tag Source for iTunes (Japan) ######## #
+# version v1.0
+# Copyright 2018 huermos
+
+[Name]=iTunes
 [BasedOn]=https://itunes.apple.com
 [IndexUrl]=https://itunes.apple.com/search?country=JP&entity=album&term=%s
 [AlbumUrl]=https://itunes.apple.com/lookup?country=JP&entity=song&limit=200&id=
@@ -16,8 +20,8 @@ joinuntil "}"
 
 do
 	# _preview
-	FindLine "collectionViewUrl\":\""
-	FindInLine "collectionViewUrl\":\""
+	findline "collectionViewUrl\":\""
+	findinline "collectionViewUrl\":\""
 	SayUntil "\""
 	say "|"
 
