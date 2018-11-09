@@ -1,0 +1,110 @@
+﻿[Name]=iTunes
+[BasedOn]=https://itunes.apple.com
+[IndexUrl]=https://itunes.apple.com/search?country=JP&entity=album&term=%s
+[AlbumUrl]=https://itunes.apple.com/lookup?country=JP&entity=song&limit=200&id=
+[WordSeperator]=+
+[IndexFormat]=%_preview%|%_url%|
+[SearchBy]=%album%
+[Encoding]=url-utf-8
+
+
+# ######## Index ######## #
+[ParserScriptIndex]=...
+
+findline "wrapperType\""
+joinuntil "}"
+
+do
+	# _preview
+	FindLine "collectionViewUrl\":\""
+	FindInLine "collectionViewUrl\":\""
+	SayUntil "\""
+	say "|"
+
+	# _url
+	findline "collectionId\":"
+	findinline "collectionId\":"
+	sayuntil ","
+	say "|"
+while "{"
+
+
+# ######## Album ######## #
+[ParserScriptAlbum]=...
+
+# debug "on" "E:\\debug.htm" "10"
+
+findline "wrapperType\""
+joinuntil "}"
+
+outputto "albumartist"
+findline "artistName\":\""
+findinline "artistName\":\""
+sayuntil "\""
+
+outputto "composer"
+findline "artistName\":\""
+findinline "artistName\":\""
+sayuntil "\""
+
+outputto "album"
+findline "collectionName\":\""
+findinline "collectionName\":\""
+sayuntil "\""
+
+outputto "year"
+findline "releaseDate\":\""
+findinline "releaseDate\":\""
+sayuntil "-"
+
+outputto "genre"
+replace "J-Pop" "JPop"
+replace "サウンドトラック" "Soundtrack"
+findline "primaryGenreName\":\""
+findinline "primaryGenreName\":\""
+sayuntil "\""
+
+outputto "coverurl"
+replace "60x60bb" "1500x1500"
+findline "artworkUrl60\":\""
+findinline "artworkUrl60\":\""
+sayuntil "\""
+
+# ######## Track ######## #
+findline "wrapperType\"" 2 1
+
+do
+	joinuntil "}"
+
+	outputto "title"
+	findline "trackName\":\""
+	findinline "trackName\":\""
+	sayuntil "\""
+	say "|"
+
+	outputto "artist"
+	findline "artistName\":\""
+	findinline "artistName\":\""
+	sayuntil "\""
+	say "|"
+
+	outputto "discnumber"
+	findline "discNumber\":"
+	findinline "discNumber\":"
+	sayuntil ","
+	say "|"
+
+	outputto "track"
+	findline "trackNumber\":"
+	findinline "trackNumber\":"
+	sayuntil ","
+	say "|"
+
+	outputto "_length"
+	findline "trackTimeMillis\":"
+	findinline "trackTimeMillis\":"
+	sayuntil "\""
+	say "|"
+
+	findline "wrapperType\"" 2 1
+while "{"
