@@ -1,5 +1,9 @@
 # Mp3tag Tag Source for iTunes
 
+Now you can add ID3 info from iTunes automatically!
+
+You need make sure this album is exist on Japanese iTunes store. For other area, see below.
+
 ## How to use
 
 Download and copy to ```%appdata%\Mp3tag\data\sources```
