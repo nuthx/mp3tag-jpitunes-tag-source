@@ -41,20 +41,24 @@ while "{"
 findline "wrapperType\""
 joinuntil "}"
 
+replace "\\\"" "&quot;"
+
 outputto "albumartist"
 findline "artistName\":\""
 findinline "artistName\":\""
-sayuntil "\""
+sayuntil "\", "
 
 outputto "composer"
 findline "artistName\":\""
 findinline "artistName\":\""
-sayuntil "\""
+sayuntil "\", "
 
 outputto "album"
+replace " - EP" ""
+replace " - Single" ""
 findline "collectionName\":\""
 findinline "collectionName\":\""
-sayuntil "\""
+sayuntil "\", "
 
 outputto "year"
 findline "releaseDate\":\""
@@ -62,14 +66,16 @@ findinline "releaseDate\":\""
 sayuntil "-"
 
 outputto "comment"
-replace "℗ " ""
+# replace "℗ " ""
 findline "copyright\":\""
 findinline "copyright\":\""
-sayuntil "\""
+sayuntil "\", "
 
 outputto "genre"
 replace "J-Pop" "JPop"
+replace "ロック" "Rock"
 replace "アニメ" "Anime"
+replace "エレクトロニック" "Electronic"
 replace "サウンドトラック" "Soundtrack"
 findline "primaryGenreName\":\""
 findinline "primaryGenreName\":\""
@@ -87,16 +93,18 @@ findline "wrapperType\"" 2 1
 do
 	joinuntil "}"
 
+	replace "\\\"" "&quot;"
+
 	outputto "title"
 	findline "trackName\":\""
 	findinline "trackName\":\""
-	sayuntil "\""
+	sayuntil "\", "
 	say "|"
 
 	outputto "artist"
 	findline "artistName\":\""
 	findinline "artistName\":\""
-	sayuntil "\""
+	sayuntil "\", "
 	say "|"
 
 	outputto "discnumber"
