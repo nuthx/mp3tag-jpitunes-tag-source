@@ -102,6 +102,7 @@ do
 	say "|"
 
 	outputto "artist"
+	replace "(CAPCOM)" ""
 	findline "artistName\":\""
 	findinline "artistName\":\""
 	sayuntil "\", "
